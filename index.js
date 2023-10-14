@@ -1,6 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const cors = require('cors') 
+const cors = require('cors')
 const mongoConnect = require('./Config/MongooseConnect')
 const routes = require('./routes/Index')
 const app = express()
@@ -10,7 +10,7 @@ const port = 5000
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors())
 app.use(express.json())
- 
+
 
 //❤️ mongodb connection 
 mongoConnect();
@@ -31,3 +31,4 @@ app.use('*', (req, res) => {
 app.listen(port, () => {
     console.log(`🚀 Server listening on port ${port}`)
 })
+

@@ -2,25 +2,37 @@ const express = require('express');
 const Student = require('../models/StudentSchema'); // Import your Student model or database schema here
 
 const studentRoutes = (app) => {
-    app.post('/students', async (req, res) => {
+    app.post('/api/students', async (req, res) => {
         try {
             // Validate and process the request data
-            const { name, email, phone, gender, age, education, address, image, studentClass, classRoll, dateOfBirth } = req.body;           
-
-            // Create a new student record in the database
-            const newStudent = new Student({
-                name,
+            const {
+                studentName,
+                fatherName,
+                motherName,
                 email,
                 phone,
                 gender,
-                age,
-                education,
                 address,
-                image, // Assuming you handle the image upload
                 studentClass,
                 classRoll,
-                dateOfBirth, // Assuming you've added dateOfBirth
-            });
+                dateOfBirth,
+            } = req.body;
+
+            const studentData = {
+                studentName,
+                fatherName,
+                motherName,
+                gender,
+                email,
+                address,
+                studentClass,
+                classRoll,
+                dateOfBirth,
+                phone,
+            };
+
+            // Create a new student record in the database
+            const newStudent = new Student(studentData);
 
             // Save the student to the database
             await newStudent.save();

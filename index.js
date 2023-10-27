@@ -1,5 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const multer = require('multer');
 const cors = require('cors')
 const mongoConnect = require('./Config/MongooseConnect')
 const routes = require('./routes/Index')

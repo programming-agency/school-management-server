@@ -30,21 +30,28 @@ const studentRoutes = (app) => {
                 dateOfBirth,
                 phone,
             };
-
             // Create a new student record in the database
             const newStudent = new Student(studentData);
 
             // Save the student to the database
             await newStudent.save();
-
-            // Send a success response
             res.status(201).json({ message: 'Student created successfully', student: newStudent });
         } catch (error) {
-            // Handle errors and send an error response
-            console.error(error);
+            // console.error(error);
             res.status(500).json({ error: 'An error occurred while creating the student' });
         }
     });
+
+    app.get('/api/students', async (req, res) => {
+        try {
+            const students = await Student.find()
+            res.status(200).json(students)
+            // console.log(students);
+        } catch (error) {
+            res.status(501).json({ message: 'Student not Found!' })
+        }
+
+    })
 };
 
 module.exports = studentRoutes;

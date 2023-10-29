@@ -18,6 +18,9 @@ const teacherRoutes = (app) => {
                 idNumber,
                 image,
                 dateOfBirth,
+                bloodGroup,
+                joinDate,
+                subject,
             } = req.body;
 
             const teacherData = {
@@ -31,7 +34,10 @@ const teacherRoutes = (app) => {
                 position,
                 idNumber,
                 image,
-                dateOfBirth
+                dateOfBirth,
+                bloodGroup,
+                joinDate,
+                subject,
             };
 
             // Create a new student record in the database
@@ -39,7 +45,7 @@ const teacherRoutes = (app) => {
             await newTeacher.save();
             res.status(201).json({ message: 'Teacher created successfully', teacher: newTeacher });
         } catch (error) {
-            console.error(error);
+            // console.error(error);
             res.status(500).json({ error: 'An error occurred while creating the Teacher' });
         }
     });
@@ -48,7 +54,7 @@ const teacherRoutes = (app) => {
         try {
             const teachers = await Teacher.find()
             res.status(200).json(teachers)
-            console.log(teachers);
+            // console.log(teachers);
         } catch (error) {
             res.status(501).json({ message: 'Teacher not Found!' })
         }

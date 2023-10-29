@@ -17,11 +17,11 @@ const StudentSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        // image:
-        // {
-        //     type: String,
-        //     required: false,
-        // },
+        image:
+        {
+            type: String,
+            required: false,
+        },
         gender: {
             type: String,
             required: true,
@@ -47,6 +47,15 @@ const StudentSchema = new mongoose.Schema(
             required: true,
         },
         address: {
+            type: String,
+            required: true,
+        },
+
+        section: {
+            type: String,
+            required: true,
+        },
+        bloodGroup: {
             type: String,
             required: true,
         },

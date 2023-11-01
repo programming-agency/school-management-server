@@ -60,6 +60,22 @@ const teacherRoutes = (app) => {
         }
     })
 
+    app.get('/api/teachers/:id', async (req, res) => {
+        try {
+            const id = req.params.id;
+            // Find the teacher with the specified ID
+            const findTeacher = await Teacher.findById(id);
+
+            if (findTeacher) {
+                res.status(200).json({ message: "Found teacher successfully", teacher: findTeacher });
+            } else {
+                res.status(404).json({ message: 'Teacher not found' });
+            }
+        } catch (error) {
+            res.status(500).json({ message: 'Internal Server Error' });
+        }
+    });
+
 };
 
 module.exports = teacherRoutes;

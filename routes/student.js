@@ -59,6 +59,23 @@ const studentRoutes = (app) => {
         }
 
     })
+
+    app.get('/api/students/:id', async (req, res) => {
+        try {
+            const id = req.params.id;
+            // console.log(id);
+            // Find the student with the specified ID
+            const findStudent = await Student.findById(id);
+
+            if (findStudent) {
+                res.status(200).json({ message: "Found student successfully", student: findStudent });
+            } else {
+                res.status(404).json({ message: 'Student not found' });
+            }
+        } catch (error) {
+            res.status(500).json({ message: 'Internal Server Error' });
+        }
+    });
 };
 
 module.exports = studentRoutes;

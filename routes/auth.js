@@ -18,7 +18,7 @@ const userRoute = (app) => {
 
     app.post('/api/login', async (req, res) => {
         const { email, password } = req.body;
-        console.log(email, password);
+        // console.log(email, password);
         try {
             const users = await User.findOne({ email });
             // console.log(users);
@@ -27,9 +27,9 @@ const userRoute = (app) => {
             }
             const isPasswordValid = password === users.password;
             // console.log("Psss", password);
-            console.log(isPasswordValid);
-            if (isPasswordValid) {
-                return res.status(401).json({ msg: "User Not authorization .LogIn Filed" })
+            // console.log(isPasswordValid);
+            if (!isPasswordValid) {
+                return res.status(401).json({ msg: "User Not authorization. LogIn Filed" })
             }
             return res.status(200).json({ msg: "Login Successfully", users })
         } catch (error) {

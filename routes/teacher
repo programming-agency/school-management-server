@@ -59,6 +59,7 @@ const teacherRoutes = (app) => {
             res.status(501).json({ message: 'Teacher not Found!' })
         }
     })
+    //  fiend  teacher by id
 
     app.get('/api/teachers/:id', async (req, res) => {
         try {
@@ -75,6 +76,17 @@ const teacherRoutes = (app) => {
             res.status(500).json({ message: 'Internal Server Error' });
         }
     });
+
+    // Delete
+    app.delete('api/teachers/:id', async (req, res) => {
+        const id = req.params.id;
+        try {
+            const deleteTeacher = await Teacher.findByIdAndDelete(id);
+            res.status(200).json({ message: "delete Teacher successfully" })
+        } catch (error) {
+            res.status(500).json(error?.message)
+        }
+    })
 
 };
 

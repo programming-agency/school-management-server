@@ -48,7 +48,7 @@ const studentRoutes = (app) => {
             res.status(500).json({ error: 'An error occurred while creating the student' });
         }
     });
-
+    // Get all student
     app.get('/api/students', async (req, res) => {
         try {
             const students = await Student.find()
@@ -59,7 +59,7 @@ const studentRoutes = (app) => {
         }
 
     })
-
+    // get student by id
     app.get('/api/students/:id', async (req, res) => {
         try {
             const id = req.params.id;
@@ -76,6 +76,19 @@ const studentRoutes = (app) => {
             res.status(500).json({ message: 'Internal Server Error' });
         }
     });
+
+    // Delete Student
+    app.delete('/api/students/:id', async (req, res) => {
+        const id = req.params.id;
+        try {
+            const deleteStudent = await Student.findByIdAndDelete(id)
+            res.status(200).json({ message: "student delete successfully" })
+        } catch (error) {
+            res.status(500).json(error?.message);
+            console.log(error);
+        }
+    })
+
 };
 
 module.exports = studentRoutes;

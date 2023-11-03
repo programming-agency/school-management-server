@@ -78,17 +78,47 @@ const studentRoutes = (app) => {
     });
 
     // Delete Student
+
     app.delete('/api/students/:id', async (req, res) => {
         const id = req.params.id;
-        try {
-            const deleteStudent = await Student.findByIdAndDelete(id)
-            res.status(200).json({ message: "student delete successfully" })
-        } catch (error) {
-            res.status(500).json(error?.message);
-            console.log(error);
-        }
-    })
+        // console.log(id);
 
+        try {
+            // Use Mongoose to find and delete the student by ID
+            const deletedStudent = await Student.findByIdAndDelete(id);
+
+            if (deletedStudent) {
+                res.status(200).json({ message: 'Student deleted successfully' });
+            } else {
+                res.status(404).json({ message: 'Student not found' });
+            }
+        } catch (error) {
+            res.status(500).json({ message: 'An error occurred while deleting the student', error: error.message });
+        }
+    });
+
+    app.put('/api/students/:id', async (req, res) => {
+        const id = req.params.id;
+        // console.log(id);
+        const updateStudentData = req.body;
+
+        try {
+            // Use the Mongoose 'findOneAndUpdate' method to update the student
+            const updatedStudent = await Student.findOneAndUpdate({ _id: id }, updateStudentData, { new: true });
+
+            if (updatedStudent) {
+                // If the student was found and updated successfully, send a success response
+                return res.status(200).json({ message: 'Student updated successfully', student: updatedStudent });
+            } else {
+                // If the student was not found, send a 404 error response
+                return res.status(404).json({ error: 'Student not found' });
+            }
+        } catch (error) {
+            // Handle any potential errors and send an error response
+            console.error(error);
+            return res.status(500).json({ error: 'An error occurred while updating the student' });
+        }
+    });
 };
 
 module.exports = studentRoutes;

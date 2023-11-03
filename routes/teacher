@@ -78,16 +78,38 @@ const teacherRoutes = (app) => {
     });
 
     // Delete
-    app.delete('api/teachers/:id', async (req, res) => {
+    app.delete('/api/teachers/:id', async (req, res) => {
         const id = req.params.id;
+        console.log(id);
         try {
             const deleteTeacher = await Teacher.findByIdAndDelete(id);
-            res.status(200).json({ message: "delete Teacher successfully" })
+            if (deleteTeacher) {
+                res.status(200).json({ message: "delete Teacher successfully" });
+            } else {
+                res.status(404).json({ message: "Teacher Not found" });
+            }
         } catch (error) {
-            res.status(500).json(error?.message)
+            res.status(500).json({ message: 'An error occurred while deleting the Teacher', error: error.message });
         }
-    })
+    });
+    app.put('/api/teachers/:id', async (req, res) => {
+        const id = req.params.id;
+        console.log(id);
+        const updateTeacherData = req.body;
 
+        try {
+            const updatedTeacher = await Teacher.findOneAndUpdate({ _id: id }, updateTeacherData, { new: true });
+
+            if (updatedTeacher) {
+                return res.status(200).json({ message: 'Teacher updated successfully', teacher: updatedTeacher });
+            } else {
+                return res.status(404).json({ error: 'Teacher not found' });
+            }
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ error: 'An error occurred while updating the teacher' });
+        }
+    });
 };
 
 module.exports = teacherRoutes;

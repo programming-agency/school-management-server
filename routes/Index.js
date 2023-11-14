@@ -1,3 +1,4 @@
+const appliedStudentRoutes = require("./applied")
 const userRoute = require("./auth")
 const NoticesRoute = require("./notis")
 const studentRoutes = require("./student")
@@ -13,6 +14,7 @@ const routes = (app) => {
     userRoute(app)
     studentUserRoute(app)
     NoticesRoute(app)
+    appliedStudentRoutes(app)
 
 
 

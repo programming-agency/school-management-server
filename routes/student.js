@@ -107,10 +107,8 @@ const studentRoutes = (app) => {
             const updatedStudent = await Student.findOneAndUpdate({ _id: id }, updateStudentData, { new: true });
 
             if (updatedStudent) {
-                // If the student was found and updated successfully, send a success response
                 return res.status(200).json({ message: 'Student updated successfully', student: updatedStudent });
             } else {
-                // If the student was not found, send a 404 error response
                 return res.status(404).json({ error: 'Student not found' });
             }
         } catch (error) {

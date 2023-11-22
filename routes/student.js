@@ -18,7 +18,8 @@ const studentRoutes = (app) => {
                 dateOfBirth,
                 image,
                 bloodGroup,
-                section
+                section,
+                status
 
             } = req.body;
 
@@ -35,7 +36,8 @@ const studentRoutes = (app) => {
                 dateOfBirth,
                 phone,
                 bloodGroup,
-                section
+                section,
+                status
             };
             // Create a new student record in the database
             const newStudent = new Student(studentData);

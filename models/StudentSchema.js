@@ -50,6 +50,68 @@ const StudentSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        bailStatus: {
+            january: {
+                type: String,
+                enum: ["Paid", "Due"],
+                default: "Due"
+            },
+            february: {
+                type: String,
+                enum: ["Paid", "Due"],
+                default: "Due"
+            },
+            march: {
+                type: String,
+                enum: ["Paid", "Due"],
+                default: "Due"
+            },
+            april: {
+                type: String,
+                enum: ["Paid", "Due"],
+                default: "Due"
+            },
+            may: {
+                type: String,
+                enum: ["Paid", "Due"],
+                default: "Due"
+            },
+            june: {
+                type: String,
+                enum: ["Paid", "Due"],
+                default: "Due"
+            },
+            july: {
+                type: String,
+                enum: ["Paid", "Due"],
+                default: "Due"
+            },
+            august: {
+                type: String,
+                enum: ["Paid", "Due"],
+                default: "Due"
+            },
+            september: {
+                type: String,
+                enum: ["Paid", "Due"],
+                default: "Due"
+            },
+            october: {
+                type: String,
+                enum: ["Paid", "Due"],
+                default: "Due"
+            },
+            november: {
+                type: String,
+                enum: ["Paid", "Due"],
+                default: "Due"
+            },
+            december: {
+                type: String,
+                enum: ["Paid", "Due"],
+                default: "Due"
+            },
+        },
 
         section: {
             type: String,

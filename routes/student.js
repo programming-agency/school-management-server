@@ -119,6 +119,42 @@ const studentRoutes = (app) => {
             return res.status(500).json({ error: 'An error occurred while updating the student' });
         }
     });
-};
+    app.put('/api/paidStudents/:id', async (req, res) => {
+        const id = req.params.id;
+        const { bailStatus } = req.body;
+
+        try {
+            // Retrieve the existing student document
+            const existingStudent = await Student.findById(id);
+
+            if (!existingStudent) {
+                return res.status(404).json({ error: 'Student not found' });
+            }
+
+            // Merge existing bailStatus with the new updates
+            const updatedBailStatus = { ...existingStudent.bailStatus, ...bailStatus };
+
+            // Use findOneAndUpdate to update the entire bailStatus object
+            const updatedStudent = await Student.findOneAndUpdate(
+                { _id: id },
+                { $set: { bailStatus: updatedBailStatus } },
+                { new: true }
+            );
+
+            if (updatedStudent) {
+                return res.status(200).json({ message: 'Student updated successfully', student: updatedStudent });
+            } else {
+                return res.status(404).json({ error: 'Student not found' });
+            }
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ error: 'An error occurred while updating the student' });
+        }
+    });
+
+
+
+
+}
 
 module.exports = studentRoutes;
